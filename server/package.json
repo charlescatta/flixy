@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Charles Catta <charles.catta@gmail.com>",
+  "devDependencies": {
+    "@types/koa": "^2.11.0",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.0.42",
+    "@types/webtorrent": "^0.107.1",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint": "^5.20.1"
+  },
+  "dependencies": {
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "tslint-config-airbnb-base": "^0.3.0",
+    "typescript": "^3.7.3",
+    "webtorrent": "^0.107.17"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/index.ts"
+  }
+}

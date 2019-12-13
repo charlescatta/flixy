@@ -1,0 +1,18 @@
+{
+  "extends": "../tsconfig.root.json",
+  "exclude": [
+    "dist"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "module": "commonjs",
+    "target": "es2017",
+    "isolatedModules": false,
+    "noEmit": false
+  }
+}
