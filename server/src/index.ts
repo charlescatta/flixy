@@ -1,26 +1,23 @@
-import Koa from 'koa';
-import Router from 'koa-router';
-import bodyParser from 'koa-bodyparser';
-import { loggerMiddleware } from './logger';
-import { port } from './config';
+import express, { Response } from 'express';
+import morgan from 'morgan';
 import { torrentRoute } from './torrents/router';
+import { port } from './config';
 
-const app = new Koa();
 
-app.use(bodyParser());
-app.use(loggerMiddleware);
+const app = express();
 
-const rootRouterV1 = new Router();
+app.use(morgan('combined'));
+app.use(express.json());
 
-rootRouterV1.all('/', async (ctx) => {
+
+app.all('/', async (_, res: Response) => {
   // tslint:disable-next-line: no-magic-numbers
-  ctx.status = 200;
-  ctx.body = `Hello ${ (typeof ctx.request.query.name !== 'undefined') ? ctx.request.query.name : 'you' }`;
+  res.status = 200;
+  res.send("UP");
 });
 
-rootRouterV1.use('/torrents', torrentRoute.routes());
+app.use('/torrents', torrentRoute);
 
-app.use(rootRouterV1.routes());
 
 app.listen(port, () => {
   // tslint:disable-next-line: no-console

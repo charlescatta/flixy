@@ -9,33 +9,37 @@ interface SerializableTorrent {
   pieces: (WebTorrent.TorrentPiece | null)[];
 }
 
-const serializableTorrent = (torrent: WebTorrent.Torrent) => {
-  const output: SerializableTorrent = {
-    name: torrent.name,
-    infoHash: torrent.infoHash,
-    magnetURI: torrent.magnetURI,
-    files: torrent.files,
-    announce: torrent.announce,
-    pieces: torrent.pieces,
-  };
-  return output;
-};
-
+function serialize(torrent: WebTorrent.Torrent) {
+    return {
+      name: torrent.name,
+      infoHash: torrent.infoHash,
+      magnetURI: torrents.magnetURI,
+      files: torrents.files,
+      announce: torrents.announce,
+      pieces: torrents.pieces,
+    };
+}
 
 class TorrentsStore {
   client: WebTorrent.Instance;
 
-  constructor() {
-    this.client = new WebTorrent();
+  constructor(opts = {}) {
+    this.client = new WebTorrent(opts);
+    this.pending = [];
   }
 
   get torrents() {
-    return this.client.torrents.map(serializableTorrent);
+    return this.client.torrents.map(serialize);
   }
 
   add(magnetLink: string) {
     return new Promise((resolve: (torrent: WebTorrent.Torrent) => void) => {
+      this.pending.push(magnetLink);
       this.client.add(magnetLink, (torrent) => {
+        const index = this.pending.indexOf(magnetLink);
+        if (index > -1) {
+          this.pending.splice(index, 1);
+        }
         resolve(torrent);
       });
     });

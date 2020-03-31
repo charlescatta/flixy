@@ -12,9 +12,8 @@
     "tslint": "^5.20.1"
   },
   "dependencies": {
-    "koa": "^2.11.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "tslint-config-airbnb-base": "^0.3.0",
     "typescript": "^3.7.3",
     "webtorrent": "^0.107.17"
